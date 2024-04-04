@@ -1,0 +1,22 @@
+
+// Dada una secuencia de letras del alfabeto que finaliza con una marca '*', contar cuantas letras "A" hay en la secuencia.
+
+Accion ContarA es
+    Ambiente
+        input: secuencia de caracteres; 
+        Vi: caracter; 
+        cont: entero;
+    Proceso
+        cont := 0;
+        Arrancar(input);
+        Avanzar(input, Vi);
+        Mientras Vi != '*' Hacer
+            Si Vi = 'A' Entonces
+                cont = cont + 1;
+            FinSi
+            avz(input, Vi);
+        FinMientras
+        Cerrar(input);
+        Escribir(cont);'
+    FinProceso
+fin Accion

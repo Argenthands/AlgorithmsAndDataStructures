@@ -1,0 +1,24 @@
+
+Dada una secuencia de letras del alfabeto que finaliza con la letra "Z", contar cuantas consonantes hay en la secuencia.
+
+Accion ContarConsonantes es
+    Ambiente
+        input: secuencia de caracteres;
+        Vi: caracter;
+        cont: entero;
+        Enum = {A, E, I, O, U};
+    Proceso
+        Arrancar(input);
+        cont :=0;
+        Repetir
+            Avanzar(input, Vi);
+            Si Vi no en Enum Entonces
+                cont := cont + 1;
+            FinSi
+        Hasta que Vi = 'Z';
+        Escribir(cont);
+        Cerrar(input);
+    FinProceso
+FinAccion
+
+

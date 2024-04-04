@@ -1,0 +1,20 @@
+
+Se dispone de una secuencia de caracteres y se desea obtener una secuencia de salida que resulte de copiar la secuencia de entrada, descartando el caracter "$".
+
+Accion CopiarSin$ es
+    Ambiente
+        Input: secuencia de caracteres;
+        Output: secuencia de caracteres;
+        Vi: caracter;
+    Proceso
+        Arrancar(Input);
+        Mientras NoFinSecuencia(Input) Hacer
+            Avanzar(Input, Vi);
+            Si Vi <> '$' Entonces
+                Grabar(Output, Vi);
+            FinSi
+        FinMientras
+        Cerrar(Input);
+        Cerrar(Output);
+    FinProceso
+FinAccion

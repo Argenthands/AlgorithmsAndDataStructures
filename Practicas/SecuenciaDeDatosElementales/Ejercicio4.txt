@@ -1,0 +1,19 @@
+
+Se dispone de una secuencia de números de socios, y se desea saber la cantidad de socios que están registrados.
+
+Accion ContarSocios es
+    Ambiente
+        Input: secuencia de números de socios; // suponiendo que el número de socio es un número entero de x cifras
+        Vi: número de socio; // número de socio pertenece a los números enteros de x cifras
+        cont: número entero;
+    Proceso
+        Arrancar(Input);
+        cont := 0;
+        Mientras NoFinSecuencia(Input) Hacer
+            Avanzar(Input, Vi);
+            cont := cont + 1;
+        FinMientras
+        Cerrar(Input);
+        Escribir(cont);
+    FinProceso
+FinAccion
