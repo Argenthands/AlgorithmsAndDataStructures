@@ -9,6 +9,7 @@ Accion ContarSocios es
     Proceso
         Arrancar(Input);
         cont := 0;
+        Avanzar(Input, Vi);
         Mientras NoFinSecuencia(Input) Hacer
             Avanzar(Input, Vi);
             cont := cont + 1;

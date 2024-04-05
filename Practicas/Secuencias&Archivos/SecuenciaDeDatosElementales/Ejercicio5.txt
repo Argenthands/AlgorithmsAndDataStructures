@@ -1,0 +1,25 @@
+
+La secuencia de socios del problema anterior tiene el inconveniente de que los números están ordenados pero no son correlativos. Se desea generar una secuencia que contenga los números de socios que no figuran en la secuencia de socios.
+
+Accion NumeroSinUsar es
+    Ambiente
+        Input: secuencia de (x) enteros; // Asumos que el tamaño de cada entero es x
+        Vinput: entero de longitud (x);
+        Output: secuencia de (x) enteros;
+        Aux: entero de longitud (x);
+    Proceso
+        Arrancar(Input);
+        Avanzar(Input, Vinput);
+        Aux = Vinput;
+        Crear(Output);
+        Mientras (NoFinSecuencia(Input)) Hacer
+            Si (Vinput - Aux > 1 ) Entonces
+                Grabar(Output, Vinput);
+            FinSi
+            Aux = Vinput;
+            Avanzar(Input, Vinput);
+        FinMientras
+        Cerrar(Output);
+        Cerrar(Input);
+    FinProceso
+FinAccion

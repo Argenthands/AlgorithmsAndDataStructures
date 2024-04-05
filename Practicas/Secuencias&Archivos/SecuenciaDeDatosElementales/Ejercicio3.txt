@@ -8,6 +8,7 @@ Accion CopiarSin$ es
         Vi: caracter;
     Proceso
         Arrancar(Input);
+        Avanzar(Input, Vi);
         Mientras NoFinSecuencia(Input) Hacer
             Avanzar(Input, Vi);
             Si Vi <> '$' Entonces

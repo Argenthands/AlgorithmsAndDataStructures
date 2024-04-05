@@ -1,0 +1,35 @@
+
+Dada una secuencia de enteros que almacena la cantidad de habitantes de las ciudades capitales de las 23 provincias de la República Argentina, discriminados 4 categorías: menores de 18 años (varones y mujeres) y mayores de 18 años (varones y mujeres). Se pide determinar la población total y los siguientes porcentajes: masculinos, femeninos, mayores de 18 y menores de 18.
+
+
+Accion DeterminarPoblacion es
+    Ambiente
+        VaronNo18, MujerNo18, Varon18, Mujer18: Entero;
+        PoblacionTotal, PorcentajeMasculino, PorcentajeFemenino, PorcentajeMayores18, PorcentajeMenores18: Entero;
+        Input: Secuencia de (x) enteros;
+        Vinput: entero de longitud (x);
+        i, j: Entero;
+    Proceso
+        VaronNo18, MujerNo18, Varon18, Mujer18 := 0;
+        Arrancar(Input);
+        Avanzar(Input, Vinput);
+        Para i:=0 a 22 i++ Hacer
+            Para j:=0 a 3 j++ Hacer
+                Segun j Hacer
+                    0: VaronNo18 := VaronNo18 + Input[i];
+                    1: MujerNo18 := MujerNo18 + Input[i];
+                    2: Varon18 := Varon18 + Input[i];
+                    3: Mujer18 := Mujer18 + Input[i];
+                FinSegun
+                Avanzar(Input, Vinput);
+            FinPara
+            Avanzar(Input, Vinput);
+        FinPara
+        Cerrar(Input);
+        PoblacionTotal := VaronNo18 + MujerNo18 + Varon18 + Mujer18;
+        PorcentajeMasculino := (VaronNo18 + Varon18) * 100 / PoblacionTotal;
+        PorcentajeFemenino := (MujerNo18 + Mujer18) * 100 / PoblacionTotal;
+        PorcentajeMayores18 := (Varon18 + Mujer18) * 100 / PoblacionTotal;
+        PorcentajeMenores18 := (VaronNo18 + MujerNo18) * 100 / PoblacionTotal;
+    FinProceso
+FinAccion

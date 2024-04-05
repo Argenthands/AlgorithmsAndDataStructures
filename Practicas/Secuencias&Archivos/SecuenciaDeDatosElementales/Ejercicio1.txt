@@ -14,7 +14,7 @@ Accion ContarA es
             Si Vi = 'A' Entonces
                 cont = cont + 1;
             FinSi
-            avz(input, Vi);
+            Avanzar(input, Vi);
         FinMientras
         Cerrar(input);
         Escribir(cont);'
