@@ -1,0 +1,28 @@
+
+Se tiene una secuencia de enteros que contiene todos los CUIT de los empleados de una empresa, la misma termina con el CUIT 0. Para evitar largas esperas en los días de pago, la empresa necesita organizarlos de acuerdo al último dígito de su documento, generar una secuencia con los CUIT de las personas que su número de documento termine con 0, 1, 2 o 3.
+
+// CUIT = 2digitos-8digitos-1digito me interesa el ultimo de los 8 digitos del medio.
+
+Accion OrganizarCUITs es
+    Ambiente
+        SaveConditions = {0, 1, 2, 3};
+        CUIT: entero de 11;
+        Input: Secuencia de CUIT;
+        Vinput: CUIT;
+        Output: Secuencia de CUIT;
+        DIGITOS_A_LA_IZQUIERDA = 10000000;
+        DIGITOS_A_LA_DERECHA = 10;
+    Proceso
+        Arrancar(Input);
+        Avanzar(Input, Vinput);
+        Crear(Output);
+        Mientras (Vinput <> 0) Hacer
+            Si (((Vinput MOD DIGITOS_A_LA_IZQUIERDA) DIV DIGITOS_A_LA_DERECHA) en SaveConditions) Entonces
+                Grabar(Output, Vinput);
+            FinSi
+            Avanzar(Input, Vinput);
+        FinMientras
+        Cerrar(Input);
+        Cerrar(Output);
+    FinProceso
+FinAccion
