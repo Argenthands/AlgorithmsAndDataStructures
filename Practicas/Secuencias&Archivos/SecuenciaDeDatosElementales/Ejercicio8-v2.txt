@@ -1,0 +1,56 @@
+
+Teniendo en cuenta el ejercicio anterior, se solicita que la secuencia de salida sea una secuencia de caracteres y los CUIT se separen unos de otros con el caracter "-".
+
+
+Accion OrganizarCUITs
+    Ambiente
+        SaveConditions = {0, 1, 2, 3};
+        CUIT: entero de 11 digitos;
+        Input: secuencia de enteros CUIT;
+        Vinput: CUIT;
+        Output: secuencia de caracteres;
+        i,j,k: entero;
+        V-Aux: entero;
+        Voutput: caracter;
+    Proceso
+        Arrancar(Input);
+        Avanzar(Input, Vinput);
+        Mientras (Vinput <> 0) Hacer
+            Si (((Vinput MOD 100 = 0) div 10) en SaveConditions) Entonces
+                Para i=1 Hasta 11 i++ Hacer
+                    Segun i Hacer
+                        1: V-Aux = Vinput Div 10000000000;
+                        2: V-Aux = (Vinput Div 1000000000) MOD 10;
+                        3: V-Aux = (Vinput Div 100000000) MOD 10;
+                        4: V-Aux = (Vinput Div 10000000) MOD 10;
+                        5: V-Aux = (Vinput Div 1000000) MOD 10;
+                        6: V-Aux = (Vinput Div 100000) MOD 10;
+                        7: V-Aux = (Vinput Div 10000) MOD 10;
+                        8: V-Aux = (Vinput Div 1000) MOD 10;
+                        9: V-Aux = (Vinput Div 100) MOD 10;
+                        10: V-Aux = (Vinput Div 10) MOD 10;
+                        11: V-Aux = Vinput MOD 10;
+                    FinSegun
+                    Segun V-Aux Hacer
+                        0: Voutput = "0";
+                        1: Voutput = "1";
+                        2: Voutput = "2";
+                        3: Voutput = "3";
+                        4: Voutput = "4";
+                        5: Voutput = "5";
+                        6: Voutput = "6";
+                        7: Voutput = "7";
+                        8: Voutput = "8";
+                        9: Voutput = "9";
+                    FinSegun
+                    Grabar(Output, Voutput);
+                FinPara
+                Grabar(Output, "-");
+            FinSi
+            Avanzar(Input, Vinput);
+        FinMientras
+        Cerrar(Input);
+        Cerrar(Output);
+    FinProceso
+FinAccion
+
