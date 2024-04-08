@@ -1,0 +1,171 @@
+
+Teniendo en cuenta el ejercicio anterior, se solicita que la secuencia de salida sea una secuencia de caracteres y los CUIT se separen unos de otros con el caracter "-".
+
+
+Accion OrganizarCUITs
+    Ambiente
+        SaveConditions = {0, 1, 2, 3};
+        CUIT: entero de 11 digitos;
+        Input: secuencia de enteros CUIT;
+        Vinput: CUIT;
+        Output: secuencia de caracteres;
+        i,j,k: entero;
+        v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11: entero;
+        vc1, vc2, vc3, vc4, vc5, vc6, vc7, vc8, vc9, vc10, vc11: caracter;
+        V-Aux: entero;
+        Voutput: caracter;
+    Proceso
+        Arrancar(Input);
+        Avanzar(Input, Vinput);
+        Mientras (Vinput <> 0) Hacer
+            Si (((Vinput MOD 100 = 0) div 10) en SaveConditions) Entonces
+                Para i=11 Hasta 1 i-- Hacer
+                    Segun i Hacer
+                        11: v11 = Vinput MOD 10;
+                        10: v10 = Vinput MOD 100 div 10;
+                        9: v9 = Vinput MOD 1000 div 100;
+                        8: v8 = Vinput MOD 10000 div 1000;
+                        7: v7 = Vinput MOD 100000 div 10000;
+                        6: v6 = Vinput MOD 1000000 div 100000;
+                        5: v5 = Vinput MOD 10000000 div 1000000;
+                        4: v4 = Vinput MOD 100000000 div 10000000;
+                        3: v3 = Vinput MOD 1000000000 div 100000000;
+                        2: v2 = Vinput MOD 10000000000 div 1000000000;
+                        1: v1 = Vinput MOD 100000000000 div 10000000000;
+                    FinSegun
+                FinPara
+                Para i=1 Hasta 11 i++ Hacer
+                    Segun i Hacer
+                        1: Segun v1 Hacer
+                            0: Voutput = '0';
+                            1: Voutput = '1';
+                            2: Voutput = '2';
+                            3: Voutput = '3';
+                            4: Voutput = '4';
+                            5: Voutput = '5';
+                            6: Voutput = '6';
+                            7: Voutput = '7';
+                            8: Voutput = '8';
+                            9: Voutput = '9';
+                        2: Segun v2 Hacer
+                            0: Voutput = '0';
+                            1: Voutput = '1';
+                            2: Voutput = '2';
+                            3: Voutput = '3';
+                            4: Voutput = '4';
+                            5: Voutput = '5';
+                            6: Voutput = '6';
+                            7: Voutput = '7';
+                            8: Voutput = '8';
+                            9: Voutput = '9';
+                        3: Segun v3 Hacer
+                            0: Voutput = '0';
+                            1: Voutput = '1';
+                            2: Voutput = '2';
+                            3: Voutput = '3';
+                            4: Voutput = '4';
+                            5: Voutput = '5';
+                            6: Voutput = '6';
+                            7: Voutput = '7';
+                            8: Voutput = '8';
+                            9: Voutput = '9';
+                        4: Segun v4 Hacer
+                            0: Voutput = '0';
+                            1: Voutput = '1';
+                            2: Voutput = '2';
+                            3: Voutput = '3';
+                            4: Voutput = '4';
+                            5: Voutput = '5';
+                            6: Voutput = '6';
+                            7: Voutput = '7';
+                            8: Voutput = '8';
+                            9: Voutput = '9';
+                        5: Segun v5 Hacer
+                            0: Voutput = '0';
+                            1: Voutput = '1';
+                            2: Voutput = '2';
+                            3: Voutput = '3';
+                            4: Voutput = '4';
+                            5: Voutput = '5';
+                            6: Voutput = '6';
+                            7: Voutput = '7';
+                            8: Voutput = '8';
+                            9: Voutput = '9';
+                        6: Segun v6 Hacer
+                            0: Voutput = '0';
+                            1: Voutput = '1';
+                            2: Voutput = '2';
+                            3: Voutput = '3';
+                            4: Voutput = '4';
+                            5: Voutput = '5';
+                            6: Voutput = '6';
+                            7: Voutput = '7';
+                            8: Voutput = '8';
+                            9: Voutput = '9';
+                        7 Segun v7 Hacer
+                            0: Voutput = '0';
+                            1: Voutput = '1';
+                            2: Voutput = '2';
+                            3: Voutput = '3';
+                            4: Voutput = '4';
+                            5: Voutput = '5';
+                            6: Voutput = '6';
+                            7: Voutput = '7';
+                            8: Voutput = '8';
+                            9: Voutput = '9';
+                        8 Segun v8 Hacer
+                            0: Voutput = '0';
+                            1: Voutput = '1';
+                            2: Voutput = '2';
+                            3: Voutput = '3';
+                            4: Voutput = '4';
+                            5: Voutput = '5';
+                            6: Voutput = '6';
+                            7: Voutput = '7';
+                            8: Voutput = '8';
+                            9: Voutput = '9';
+                        9 Segun v9 Hacer
+                            0: Voutput = '0';
+                            1: Voutput = '1';
+                            2: Voutput = '2';
+                            3: Voutput = '3';
+                            4: Voutput = '4';
+                            5: Voutput = '5';
+                            6: Voutput = '6';
+                            7: Voutput = '7';
+                            8: Voutput = '8';
+                            9: Voutput = '9';
+                        10 Segun v10 Hacer
+                            0: Voutput = '0';
+                            1: Voutput = '1';
+                            2: Voutput = '2';
+                            3: Voutput = '3';
+                            4: Voutput = '4';
+                            5: Voutput = '5';
+                            6: Voutput = '6';
+                            7: Voutput = '7';
+                            8: Voutput = '8';
+                            9: Voutput = '9';
+                        11 Segun v11 Hacer
+                            0: Voutput = '0';
+                            1: Voutput = '1';
+                            2: Voutput = '2';
+                            3: Voutput = '3';
+                            4: Voutput = '4';
+                            5: Voutput = '5';
+                            6: Voutput = '6';
+                            7: Voutput = '7';
+                            8: Voutput = '8';
+                            9: Voutput = '9';
+                    FinSegun
+                    Grabar(Voutput, Voutput);
+                FinPara
+                Grabar(Output, '-');
+            FinSi
+            Avanzar(Input, Vinput);
+        FinMientras
+        Cerrar(Input);
+        Cerrar(Output);
+    FinProceso
+FinAccion
+                
