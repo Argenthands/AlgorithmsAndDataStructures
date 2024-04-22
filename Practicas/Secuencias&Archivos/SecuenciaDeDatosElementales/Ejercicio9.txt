@@ -1,0 +1,19 @@
+
+Se dispone de una secuencia de caracteres. Se desea determinar la cantidad de palabras que comienzan con la letra 'I'.
+
+Accion ContarPalabrasConI es
+    Ambiente
+        Input: Secuencia de caracteres;
+        Vi: caracter;
+        Contador: entero;
+    Proceso
+        Arrancar(Input); Avz(Input, Vi); Contador := 0;
+        Mientras NoFinSec(Input)
+            si (Vi = "i") entonces
+                Contador = Contador +1
+            fin si
+            Avz(Input, Vi)
+        fin Mientras
+        esc("el total de letras I en la secuencia es ", Contador)
+    fin Proceso
+fin Accion
