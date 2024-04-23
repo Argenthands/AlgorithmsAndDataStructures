@@ -10,7 +10,7 @@ Accion ContarPalabrasConI es
         Arrancar(Input); Avz(Input, Vi); Contador := 0;
         Mientras NoFinSec(Input)
             si (Vi = "i") entonces
-                Contador = Contador +1
+                Contador := Contador +1
             fin si
             Avz(Input, Vi)
         fin Mientras
