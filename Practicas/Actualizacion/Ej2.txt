@@ -1,0 +1,70 @@
+Accion 2.2.21 Es
+    Ambiente
+        RDate = Registro
+            AAAA: N(4);
+            MM: N(2);
+            DD: N(2);
+        FinRegistro
+        RKey = Registro
+            CUser: N(8);
+            CFriend: N(8);
+        FinRegistro
+        RAmigos = Registro
+            Key = RKey
+            FriendshipDate: RDate;
+            WallMessage: AN(140);
+        FinRegistro
+        FriendshipFile, NFriendshipFile: Archivo de RAmigos ordenado por Key;
+        VFF, VNFF: RAmigos;
+        CodMov = ("A", "B", "M");
+        RNotification = Registro
+            Key: RKey;
+            CodMov: CodMov;
+            FriendshipDate: RDate;
+            WallMessage: AN(140);
+        FinRegistro
+        NotificationFile: Archivo de RNotification ordenado por Key y CodMov;
+        VNotificationF: RNotification;
+        Procedimiento FRead() Es
+            Leer(FriendshipFile, VFF);
+            Si (FdA(FriendshipFile)) Entonces
+                Key := HV;
+            FinSi
+        FinProcedimiento
+        Procedimiento NRead() Es
+            Leer(NotificationFile, VNotificationF);
+            Si (FdA(NotificationFile)) Entonces
+                VNotificationF.Key := HV;
+            FinSi
+        FinProcedimientoo
+    Proceso
+        Abrir E/ (FriendshipFile); FRead();
+        Abrir E/ (NotificationFile); NRead();
+        Abrir S/ (NFriendshipFile);
+
+        Mientras (VFF.CUser <> HV & VNotificationF.CUser <> HV) Hacer
+            Si(VFF.Key > VNotificationF.Key) Entonces //solo puede ser alta
+                Segun (VNotificationF.CodMov)
+                    "A": 
+                        VNFF := VNotificationF;
+                        Grabar(NFriendshipFile, VNFF);
+                    "B": Esc("Error de baja imposible");
+                    "M": Esc("Error de Modificacion imposible");
+                FinSegun
+                NRead()
+            FinSi
+            Si(VFF.Key = VNotificationF.Key) Entonces // Modificacion o Baja
+                Segun (VNotificationF.CodMov)
+                    "A":
+                    "B":
+                    "M":
+                FinSegun
+                NRead(); FRead();
+            FinSi
+            Si(VFF.Key < VNotificationF.Key) Entonces // Se copia tal cual
+                Grabar(NFriendshipFile, VFF);
+                FRead();
+            FinSi
+        FinMientras
+        Cerrar(NFriendshipFile); Cerrar(FriendshipFile); Cerrar(NotificationFile);
+FinAccion

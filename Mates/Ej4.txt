@@ -1,0 +1,15 @@
+4. La suma de la altura de cinco lápices es de 107 cm. La altura de los lápices verde y azul suman 29 cm, la altura de los lápices azul y rojo suman 44 cm, la altura de los lápices rojo y amarillo suman 57 cm y la altura de los lápices amarillo y marrón suman 46 cm. La altura del lápiz más chiquito, es decir, con menos altura es:
+
+Verde + Azul + Rojo + Amarillo + Marron = 107cm
+Verde + Azul = 29cm
+Azul + Rojo = 44cm
+Rojo + Amarillo = 57cm
+Amarrillo + Marron = 46cm
+
+29cm + 57cm + Marron = 107cm --> 107cm -29cm -57cm = Marron --> Marron = 21cm
+Amarillo + 21cm = 46cm --> Amarillo = 25cm
+Rojo + 25cm = 57cm --> Rojo = 32cm
+Azul + 32cm = 44cm --> Azul = 12cm
+Verde + 12cm = 29cm --> Verde = 17cm
+
+

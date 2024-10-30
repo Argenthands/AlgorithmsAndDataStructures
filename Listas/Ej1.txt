@@ -1,0 +1,32 @@
+Diseñar un algoritmo para acceder, eliminar o insertar el k-ésimo elemento de una lista (siendo k una posición dada). Si la lista está vacía o si el valor de k esta fuera del rango del índice de la lista, invocar al procedimiento de ERROR. En cualquier otro caso, efectuar el procedimiento solicitado.
+
+Accion Listas_1 (Head: Puntero a Lista, ERROR: Procedimiento) Es
+    Ambiente
+        Lista = Registro
+            Datos ...
+            Proximo: Puntero a Lista;
+        FinRegistro
+        Anterior, Actual: Puntero a Lista;
+        Contador, Borrar: Entero;
+        Procedimiento BorrarElemento(Ant, Act) Es
+            Si (Ant = Nill) Entonces
+                Head := *Act.Proximo;
+            SiNo
+                *Ant.Proximo := *Act.Proximo
+            FinSI
+            Disponer();
+        FinProcedimiento
+    Proceeso
+        Contador := 0;
+        Actual := Head;
+        Mientras (Actual <> Nill & Borrar <> Contador) Hacer
+            Anterior := Actual;
+            Actual := *Actual.Proximo;
+            Contador := Contador +1;
+        FinMientras
+        Si (Actual <> Nill) Entonces
+            BorrarElemento(Anterior, Actual)
+        SiNo
+            ERROR();
+        FinSi
+FinAccion

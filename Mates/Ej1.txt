@@ -1,0 +1,1 @@
+1. Un grupo de compañeros tiene clase todos juntos de la materia “Pensamiento computacional”. Deben hacer un trabajo en equipos por lo que se dividen en diferentes mesas. Si se sientan tres compañeros por mesa quedan dos compañeros sin mesa. Si se sientan cuatro compañeros por mesa queda una mesa vacía. ¿Cuántos compañeros y mesas hay?

@@ -1,0 +1,39 @@
+Construir un algoritmo que a partir de un fichero de películas nuevas y otro fichero de peliculas existentes, ambos ordenados por película. Genere un único archivo (con el mismo formato de los ficheros de entrada) que contenga todas las peliculas. Considerar que hay un solo registro por película y no se repiten entre ficheros.
+Registro: *NroPelicula* | Titulo | Genero | Cant_Copias | Fecha_Estreno
+Archivos: Peliculas Nuevas y Peliculas Viejas
+
+Accion 2.2.16 es
+    Ambiente
+        Genero = ("Accion", "Terror", "Comedia");
+        RFecha = Registro
+            AAAA: N(4);
+            MM: N(2);
+            DD: N(2);
+        FinRegistro
+        RPel = Registro
+            NroPel: Entero;
+            Titulo: AN(32);
+            Genero: Genero;
+            Copias: Entero;
+            Estreno: RFecha;
+        FinRegistro
+        Nuevas, Viejas, Sal: Archivo de Rpel ordenado por NroPel;
+        VN, VV, VS: Rpel;
+        Procedimeinto LeerNuevas() es
+            Leer(Nuevas, VN);
+            Si(FdA(Nuevas)) entonces
+                VN.NroPel = HV;
+            FinSi
+        FinProcedimiento
+    Proceso
+        Abrir E/ (Nuevas); Leer(Nuevas, VN); Abrir E/ (Viejas); Leer(Viejas, VV); Abrir S/ (Sal);
+        Mientras(VN.NroPel <> HV Or VV.NroPle <> HV) Hacer
+            Si(VN.NroPel < VV.NroPel) entonces
+                VS = VN
+            SiNo entonces
+                VS = VV
+            FinSi
+            Esc(Sal, VS);
+        FinMientras
+        Cerrar(Sal); Cerrar(Nuevas); Cerrar(Viejas);
+FinAccion.

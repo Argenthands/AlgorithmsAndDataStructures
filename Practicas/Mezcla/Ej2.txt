@@ -1,0 +1,84 @@
+la Secretaria Academica de la Facultad lanza un proyecto para incentivar a aquellos alumnos que realizaron el Cursillo de Ingreso a la Universidad y no lograron aprobarlo en los turnos de Agosto y Febrero, de manera de brindarles apoyo Academico con el fin de que, en el Cursillo del año siguiente puedan aprobar los examenes necesarios e ingresar a la Universidad.
+
+Para esto, dicha Secretaria­necesita crear un archivo donde se encuentren todos los aspirantes que realizaron el Cursillo de Ingreso en ambos turnos, y no lograron aprobarlo.
+
+Los datos correspondientes a cada uno de los turnos del Cursillo dictado están almacenados en dos archivos (uno para cada turno), los cuales presentan el siguiente formato:
+
+Registro: *DNI* | ApeyNom | Carrera | F_Nac | Email | ColegioSec | FechaInscripcion | Aprobado (Si/No)
+Archivos: Agosto y Febrero
+Formato de salida: *DNI* | ApeyNom | Email | ColegioSec
+
+Accion 2.2.17 es
+    Ambiente
+        Carreras = ("IEM", "IQ", "ISI");
+        Fecha = Registro
+            AAAA: N(4);
+            MM: N(1 a 12);
+            DD: N(1 a 31);
+        FinRegistro
+        correo = RegEx(^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$)
+        RIngresantes = Registro
+            DNI: N(8);
+            ApeyNom: AN(32);
+            Carrera: Carreras;
+            F_Nac: Fecha;
+            Email: correo;
+            ColegioSec: AN(32);
+            FechaInscripcion: Fecha;
+            Aprobado: Logico;
+        FinRegistro
+        RSal = Registro
+            DNI: N(8);
+            ApeyNom: AN(32);
+            Email: correo;
+            ColegioSec: An(32);
+        FinRegistro
+        Agosto, Febrero: Archivo de RIngresantes ordenado ordenado por DNI;
+        Sal: Archivo de RSal ordenado por DNI;
+        VAg, VFeb: RIngresantes; VSal: RSal;
+        Procedimiento LeerAgosto()es
+            Leer(Agosto, VAg);
+            Si (FdA(Agosto)) Entonces
+                Agosto.DNI := HV;
+            FinSI
+        FinProcedimiento
+        Procedimiento LeerFebrero()es
+            Leer(Febrero, VFeb);
+            Si (FdA(Febrero)) Entonces
+                Febrero.DNI := HV;
+            FinSI
+        FinProcedimiento
+    Proceso
+        Abrir E/ (Agosto); Leer(Agosto, VAg);
+        Abrir E/ (Febrero); Leer(Febrero, VFeb);
+        Abrir S/ (Sal);
+        Mientras (Agosto.DNI <> HV OR Febrero.DNI <> HV) Hacer
+            Segun (VAg.DNI)
+            < VFeb.DNI:
+                Si (No VAg.Aprobado) Entonces
+                    VSal.DNI := VAg.DNI;
+                    VSal.ApeyNom := VAg.ApeyNom;
+                    VSal.Email := VAg.Email;
+                    VSal.ColegioSec := VAg.ColegioSec;
+                FinSi
+                LeerAgosto();
+             > VFeb.DNI:
+                Si (No VFeb.Aprobado) Entonces
+                    VSal.DNI := VFeb.DNI;
+                    VSal.ApeyNom := VFeb.ApeyNom;
+                    Vsal.Email := VFeb.Email;
+                    Vsal.ColegioSec := VFeb.ColegioSec;
+                FinSI
+                LeerFebrero();
+            Otro:
+                Si (No VFeb.Aprobado) Entonces
+                    VSal.DNI := VFeb.DNI;
+                    VSal.ApeyNom := VFeb.ApeyNom;
+                    Vsal.Email := VFeb.Email;
+                    Vsal.ColegioSec := VFeb.ColegioSec;
+                FinSI
+                LeerFebrero(); LeerAgosto();
+            FinSegun
+        FinMIentras
+        Cerrar(Febrero); Cerrar(Agosto); Cerrar(Sal);
+FinAccion.

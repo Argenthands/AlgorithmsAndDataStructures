@@ -1,0 +1,59 @@
+Un supermercado desea conocer la totalidad de unidades existentes de cada artículo a fin de hacer un control de stock y decidir si se deben comprar nuevas unidades o redistribuir la mercadería existente.
+El supermercado posee dos sucursales, cada una de las cuales envió su información en un fichero con el siguiente formato:
+Cod_Prod | Tipo | Marca | Descripción | Cant_Unidades
+Escribir un algortimo que permita obtener un único fichero de salida, con el mismo formato, que contenga la información solicitada y además, emita un listado con los siguientes datos:
+Cod_Prod | Tipo | Marca | Descripción | Cant_Suc_1 | Cant_Suc_2 | Total_Unidades
+
+Accion 2.2.18 es
+    Ambiente
+        RArticulos = Registro
+            Cod_Prod: N(8);
+            Tipo: rango enumerado;
+            Marca: listado enumerado;
+            Descrip: AN(64);
+            Cant: N(8);
+        FinRegistro
+        Suc1, Suc2, Sal: Archivo de RArticulos ordenado por Cod_Prod;
+        VS1, VS2, VSal: RArticulos;
+        Procedimiento LeerS1() es
+            Leer(Suc1, VS1);
+            Si (FdS(Suc1)) Entonces
+                Suc1.Cod_Prod := HV;
+            FinSi
+        FinProcedimiento
+        Procedimiento LeerS2() es
+            Leer(Suc2, VS2);
+            Si (FdS(Suc2)) Entonces
+                Suc2.Cod_Prod := HV;
+            FinSI
+        FinProcedimiento
+    Proceso
+        Abrir E/ (Suc1); LeerS1(); Abrir /E (Suc2); LeerS2(); Abrir S/ (Sal);
+        Esc("Cod_Prod | Tipo | Marca | Descripción | Cant_Suc_1 | Cant_Suc_2 | Total_Unidades")
+        Mientras (VS1.Cod_Prod <> HV OR VS2.Cod_Prod <> HV) Hacer
+            Segun VS1.Cod_Prod
+            = VS2.Cod_Prod:
+                VSal.Cod_Prod := VS1.Cod_Prod;
+                VSal.Tipo := VS1.Tipo;
+                VSal.Marca := VS1.Marca;
+                VSal.Descrip := VS1.Descrip;
+                VSal.Cant := S1.Cant + VS2.Cant;
+                Esc(VSal.Cod_Prod, VSal.Tipo, VSal.Marca, VSal.Descrip, VS1.Cant, Vs2.Cant, VSal.Cant);
+            < VS2.Cod_Prod:
+                VSal.Cod_Prod := VS1.Cod_Prod;
+                VSal.Tipo := VS1.Tipo;
+                VSal.Marca := VS1.Marca;
+                VSal.Descrip := VS1.Descrip;
+                VSal.Cant := S1.Cant;
+                Esc(VSal.Cod_Prod, VSal.Tipo, VSal.Marca, VSal.Descrip, VS1.Cant, 0, VSal.Cant);
+            > VS2.Cod_Prod:
+                VSal.Cod_Prod := VS2.Cod_Prod;
+                VSal.Tipo := VS2.Tipo;
+                VSal.Marca := VS2.Marca;
+                VSal.Descrip := VS2.Descrip;
+                VSal.Cant := VS2.Cant;
+                Esc(VSal.Cod_Prod, VSal.Tipo, VSal.Marca, VSal.Descrip, 0, Vs2.Cant, VSal.Cant);
+            FinSegun
+        FinMientras
+        Cerrar(Suc1); Cerrar(Suc2); Cerrar(Sal);
+FinAccion.

@@ -1,0 +1,45 @@
+Dada una secuencia texto de entrada que contiene palabras alfanuméricas, escribir un algoritmo que genere dos secuencias de salida. Una de ellas contendrá solo las palabras de la secuencia original que comienzan con vocal, en las cuales se reemplazarán todas las vocales por ‘#’, por ejemplo: entrada 'avión1', salida '#v##n1' y la otra será una secuencia numérica en la que se almacenarán las cantidades de vocales que se encontraron en cada una de las palabras que cumplieron la condición. Por final de proceso se deberá informar el promedio de palabras por oración.
+
+Accion SacarVocales es
+    Ambiente
+        Input, Output1: secuencia de caracter;
+        VInput: caracter;
+        Output2: secuencia de entero;
+        contadorDeVocales, contadorDePalabras, totalDePalabras: entero;
+        VOCAL = ("A", "E", "I", "O", "U");
+
+        procedimiento TratarCopia es
+            Mientras (VInput <> " ") Hacer
+                Si(VInput en VOCAL) Hacer
+                    contadorDeVocales := contadorDeVocales + 1;
+                    escribir(Output1, "#");
+                SiNo
+                    escribir(Output1, VInput);
+                FinSI
+                Avanzar(Input, VInput);
+            FinMientras
+            escribir(Output2, contadorDeVocales);
+            contadorDeVocales := 0;
+        FinProcedimiento
+
+    Procedimiento
+        contadorDeVocales, contadorDePalabras, totalDePalabras := 0;
+        Arrancar(Input); Avanzar(Input, VInput); Crear(Output1); Crear(Output2);
+
+        Mientras (NoFinDeSecuencia(Input)) Hacer
+            Si (VInput en VOCAL) Hacer
+                contadorDePalabras := contadorDePalabras + 1;
+                TratarCopia
+            SiNo
+                Mientras (VInput <> " ") Hacer
+                    Avanzar(Input, VInput)
+                FinMientras
+            FinSI
+            totalDePalabras := totalDePalabras + 1;
+            Mientras (VInput = " ") Hacer
+                Avanzar(Input, VInput)
+            FinMientras
+        FinMientras
+        Cerrar(Output1); Cerrar(Output2); Cerrar(Input);
+        escribir("el primedio de aplabras es ", (contadorDePalabras / totalDePalabras));
+FinAccion

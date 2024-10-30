@@ -1,0 +1,34 @@
+Del archivo general de alumnos de la U.T.N. - Facultad Regional Resistencia, ordenado por carrera, se desea emitir la cantidad de alumnos correspondientes a cada carrera y el total general.
+
+Accion MostrarAlumnos es
+    Ambiente
+        Carreras: ("IEM", "ISI", "IQ");
+        Alumno = Registro
+            Carrera: Carreras;
+            Legajo: Entero;
+            Nombre: AN(30);
+        FinRegistro
+        Input: Archivo de Alumno ordenado por Carrera;
+        V: Alumno;
+        ResguardoCarrera: Carreras;
+        TotalGeneral, TotalCarrera: Entero;
+
+        Prcedimiento CambioDeCarrera() es
+            Escribir("El total en la carrera ", ResguardoCarrera, " es de ", TotalCarrera);
+            TotalGeneral := TotalGeneral + TotalCarrera;
+            TotalCarrera := 0;
+            ResguardoCarrera := V.Carrera;
+        FinProcedimiento
+    Proceso
+        Abrir E/ (Input); Leer(Input, V); TotalGeneral := 0; TotalCarrera := 0; ResguardoCarrera := V.Carrera;
+        Mientras (NoFinDeArchivo(Input)) Hacer
+            Si (ResguardoCarrera <> V.Carrera) entonces
+                CambioDeCarrera();
+            FinSi
+            TotalCarrera := TotalCarrera +1;
+            Leer(Input, V)
+        FinMientras
+        CambioDeCarrera();
+        Escribir("El total General es ", TotalGeneral);
+        Cerrar(Input)
+FinAccion

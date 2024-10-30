@@ -1,0 +1,157 @@
+```
+Accion 2.2.19 es
+    Ambiente
+        RFecha = Registro
+            AAAA: N(4);
+            MM = (1 a 12);
+            DD = (1 a 31);
+        FinRegistro
+        Hoy, Vencimiento: RFecha;
+        FlagA, FlagM, FlagD: Boolean;
+        Meses31 = (1, 3, 5, 7, 8, 10, 12);
+        Meses30 = (4, 6, 9, 11)
+
+# Archivo Maestro #
+        RMae = Registro
+            Farmacia: N(8);
+            Medicamento: N(16);
+            Cantidad: N(8);
+            Vencimiento: RFecha;
+        FinRegistro
+        Mae, NMae: Archivo de RMae ordenado por Farmacia y Medicamento;
+        VMae, VNMae: RMae;
+
+# Claves unificadas para comparar #
+        RClave = Registro
+            Farmacia: N(8);
+            Medicamento: N(16);
+        FinRegistro
+        ClaveMae, ClaveMov: RClave;
+
+# Archivo Movimientos #
+        RCodMov = (1 a 3);
+        RMov = Registro
+            Farmacia: N(8);
+            Medicamento: N(16);
+            CodMov: RCodMov;
+            CantRecibida: N(8);
+        FinRegistro
+        Mov: Archivo de RMov ordenado por Farmacia, Medicamento y CodMov;
+        VMov: RMov;
+
+# Archivo de Vencimientos #
+        RVencidos = Registro
+            Medicamento: N(16);
+            CantVencida: N(16);
+        FinRegistro
+        Vencidos: Archivo de RVencidos ordenado por Medicamento;
+        VVencidos: RVencidos;
+
+# Procedmientos Incluyentes #
+        Procedimiento LeerMov() es
+            Leer(Mov, VMov);
+            ClaveMov.Farmacia := VMov.Farmacia;
+            ClaveMov.Medicamento := VMov.Medicamento;
+            Si (FdA(Mov)) Entonces
+                ClaveMov.Farmacia := HV;
+                ClaveMov.Medicamento := HV;
+            FinSi
+        FinProcedimiento
+        Procedimiento LeerMae() es
+            Leer(Mae, VMae);
+            ClaveMae.Farmacia := VMae.Farmacia;
+            ClaveMae.Medicamento := VMae.Medicamento;
+            Si (FdA(Mae)) Entonces
+                ClaveMae.Farmacia := HV;
+                ClaveMae.Medicamento := HV;
+            FinSi
+        FinProcedimiento
+
+    Procso
+# Cargando la Fecha actual #
+        Repetir
+        FlagA := False; FlagM := False; FlagD := False;
+            Si (No FlagA) Entonces
+                Esc("Ingrese los 4 dígitos del año actual);
+                Leer(Hoy.AAAA);
+                Si (Hoy.AAAA > 2023) Entonces
+                    FlagA := True;
+                FinSi
+            FinSi
+            Si (No FlagM) Entonces
+                Esc("Ingrese los 2 dígitos correspondientes al mes actual);
+                Leer(Hoy.MM);
+                Si (Hoy.MM > 0 & HoyMM < 13) Entonces
+                    FlagM := True;
+                FinSi
+            FinSi
+            Si (No FlagD) Entonces
+                Esc("Ingrese los 2 dígitos del día actual);
+                Leer(Hoy.DD);
+                Segun Hoy.MM
+                    En Meses30:
+                        Si (Hoy.DD > 0 & Hoy.DD < 31) Entonces
+                            FlagD := True;
+                        FinSi
+                    En Meses31:
+                        Si (Hoy.DD > 0 & Hoy.DD < 32) Entonces
+                            FlagD := True;
+                        FinSi
+                    = 2:
+                        Si (Hoy.DD > 0 & Hoy.DD < 30) Entonces
+                            FlagD := True;
+                        FinSi
+                    Otro:
+                        Esc("Error de fecha");
+                FinSegun
+            FinSi
+        Hasta (FlagA & FlagM & FlagD)
+
+# Calcuando el vencimiento #
+        
+
+        Abrir E/ (Mae); LeerMae();
+        Abrir E/ (Mov); LeerMov();
+        Abrir /S (NMae);
+        Mientras (ClaveMae.Farmacia <> HV OR ClaveMov.Medicamento <> HV) Hacer
+            Si (ClaveMae < ClaveMov) Entonces
+                Grabar(NMae, VMae);
+                LeerMae();
+            SiNo
+                Si (ClaveMae = ClaveMov) Entonces
+                    Segun (Mov.CodMov)
+                        1:
+                            Esc("Error: Imposible dar de alta un producto existente");
+                            Esc("En la Farmacia ", ClaveMae.Farmacia, " con el medicamento", ClaveMae.Medicamento);
+                        2: 
+                            VVencidos.Medicamento := VMov.Medicamento;
+                            VVencidos.CantVencida := VMov.CantRecibida;
+                        3:
+                            VMae.Cantidad := VMae.Cantidad + VMov.CantRecibida;
+                            Grabar(NMae, VMae);
+                    FinSegun
+                    LeerMae(); LeerMov();
+                SiNo
+                    Si (ClaveMae > ClaveMov) Entonces
+                        Segun (Mov>CodMov)
+                            1:
+                                VNMae.Farmacia := ClaveMov.Farmacia;
+                                VNMae.Medicamento := ClaveMov.Medicamento;
+                                VNMae.Cantidad := VMov.CantRecibida;
+                                VNMaeVencimiento := AumentarDias(Hoy, 30); //Hoy + 30 d
+                                Grabar(NMae, VNMae);
+                            2:
+                                Esc("Error: Imposible dar de baja un producto inexistente");
+                                Esc("En la Farmacia ", ClaveMov.Farmacia, " con el medicamento", ClaveMov.Medicamento);
+                            3:
+                                Esc("Error: Imposible modificar un producto inexistente");
+                                Esc("En la Farmacia ", ClaveMov.Farmacia, " con el medicamento", ClaveMov.Medicamento);
+                        FinSegun
+                        LeerMov();
+                    FinSi
+                FinSi
+            FinSi
+        FinMientras
+        Cerrar(NMae); Cerrar(Mov); Cerrar(Mae);
+FinAccion.
+```

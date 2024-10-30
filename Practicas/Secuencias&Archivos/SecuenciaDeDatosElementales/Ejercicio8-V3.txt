@@ -1,0 +1,64 @@
+
+Teniendo en cuenta el ejercicio anterior, se solicita que la secuencia de salida sea una secuencia de caracteres y los CUIT se separen unos de otros con el caracter "-".
+
+
+Accion OrganizarCUITs
+    Ambiente
+        SaveConditions = {0, 1, 2, 3};
+        CUIT: entero de 11 digitos;
+        Input: secuencia de enteros CUIT;
+        Vinput: CUIT;
+        Output: secuencia de caracteres;
+        i,j,k: entero;
+        V-Aux: entero;
+        Voutput: caracter;
+
+        Funcion CuitToNum (cuit: entero de 11 digitos, posicion: entero): entero
+            Segun posicion Hacer
+                1: CuitToNum = cuit Div 10000000000;
+                2: CuitToNum = (cuit Div 1000000000) MOD 10;
+                3: CuitToNum = (cuit Div 100000000) MOD 10;
+                4: CuitToNum = (cuit Div 10000000) MOD 10;
+                5: CuitToNum = (cuit Div 1000000) MOD 10;
+                6: CuitToNum = (cuit Div 100000) MOD 10;
+                7: CuitToNum = (cuit Div 10000) MOD 10;
+                8: CuitToNum = (cuit Div 1000) MOD 10;
+                9: CuitToNum = (cuit Div 100) MOD 10;
+                10: CuitToNum = (cuit Div 10) MOD 10;
+                11: CuitToNum = cuit MOD 10;
+            FinSegun
+
+        Funcion NumToString (num: entero): caracter
+            Segun num Hacer
+                0: NumToString = "0";
+                1: NumToString = "1";
+                2: NumToString = "2";
+                3: NumToString = "3";
+                4: NumToString = "4";
+                5: NumToString = "5";
+                6: NumToString = "6";
+                7: NumToString = "7";
+                8: NumToString = "8";
+                9: NumToString = "9";
+            FinSegun
+        FinFunción
+
+    Proceso
+        Arrancar(Input);
+        Avanzar(Input, Vinput);
+        Mientras (Vinput <> 0) Hacer
+            Si (((Vinput MOD 100 = 0) div 10) en SaveConditions) Entonces
+                Para i=1 Hasta 11 i++ Hacer
+                    V-Aux = CuitToNum(Vinput, i);
+                    Voutput = NumToString(V-Aux);
+                    Grabar(Output, Voutput);
+                FinPara
+                Grabar(Output, "-");
+            FinSi
+            Avanzar(Input, Vinput);
+        FinMientras
+        Cerrar(Input);
+        Cerrar(Output);
+    FinProceso
+FinAccion
+

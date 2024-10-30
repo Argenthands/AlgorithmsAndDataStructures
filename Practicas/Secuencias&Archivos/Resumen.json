@@ -1,0 +1,12 @@
+{
+    "Procesos con Archivos" : {
+        "Individuales" : {
+            "Generación":[],
+            "Listado":[],
+            "Estadistico":{
+                "Corte de control": ["totales parciales", "totales generales"]
+            }
+        },
+        "Multiples":""
+    }
+}

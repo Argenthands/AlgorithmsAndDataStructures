@@ -1,0 +1,28 @@
+Se dispone de un archivo con datos de los alumnos de la U.T.N. con la siguiente información para cada alumno:
+
+ALUMNOS Ordenado por Sexo, Carrera, Nro_Legajo
+
+Sexo | Carrera | Nro_Legajo | Fecha_Ingreso | Total_Materias_Aprobadas
+Se desea un listado con el siguiente detalle por sexo, carrera y total general
+
+Total de alumnos que ingresaron en el año 2009 con más de 20 materias aprobadas.
+
+Total de alumnos que ingresaron en el año 2009 con menos de 20 materias aprobadas
+
+Accion Alumnos2019Con20Materias es
+    Ambiente
+        Carreras: ("IEM", "ISI", "IQ");
+        Fechas: Registro
+            Anio: N(4);
+            Mes: (1 a 12);
+            Dia: (1 a 31);
+        FinRegistro
+        RAlumno = Registro
+            Sexo: ("M", "F");
+            Carrera: Carreras;
+            Nro_Legajo: Entero;
+            Fecha_Ingreso: Fechas;
+            Total_Materias_Aprobadas: Entero;
+        FinRegistro
+        AlumnosAntes2009, AlumnosDespues2009: Entero;
+        

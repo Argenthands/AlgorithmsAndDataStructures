@@ -1,0 +1,63 @@
+Dada un secuencia de caracteres con la información de los alumnos que se encuentran cursando la materia de Algoritmos y Estructura de datos , con la siguiente estructura:
+COMISION (1caracter) CantidadDeAlumnos(2 caracter) [LEGAJO (4 caracteres) Apellido Y Nombre (#) … ]
+
+Nota: La cantidad de alumnos que figuran en [] es la que se indica en CantidadDeAlumnos, el “[“ y ”]” no se incluyen
+
+1 Generar una secuencia de salida con el nombre y apellido de todos los alumnos cuyo legajo sea PAR.
+1 Indicar por comisión, la cantidad de alumnos que cumplen la condición anterior.
+
+Accion AlumnosDeA&EdD es
+    Ambiente
+        Input, Output: secuencia de caracteres;
+        VInput: caracter;
+        ContadorAlumnos, ContadoreAlumnosPares, CantidadDeAlumnos, i, j: Entero;
+        ComisionActual: caracter;
+
+        Funcion CaracterToInteger (Num: caracter): Entero;
+            Segun Num Hacer:
+                "0": CaracterToInteger = 0
+                "1": CaracterToInteger = 1
+                "2": CaracterToInteger = 2
+                "3": CaracterToInteger = 3
+                "4": CaracterToInteger = 4
+                "5": CaracterToInteger = 5
+                "6": CaracterToInteger = 6
+                "7": CaracterToInteger = 7
+                "8": CaracterToInteger = 8
+                "9": CaracterToInteger = 9
+            finSegun
+        FinFuncion
+    Proceso
+        ContadorAlumnos, ContadoreAlumnosPares := 0;
+        Arrancar(Input); Avanzar(Input, VInput); Crear(Output);
+        Mientras NoFinDeSecuencia(Input) Hacer
+            
+            ComisionActual := VInput;
+            Avanzar(Input, VInput)
+            CantidadDeAlumnos := CaracterToInteger(VInput)*10
+            Avanzar(Input, VInput);
+            CantidadDeAlumnos := CantidadDeAlumnos + CaracterToInteger(VInput)
+
+            Para i := 0 hasta CantidadDeAlumnos Hacer
+                Para j := 0 hasta 4 Hacer
+                    Avanzar(Input, VInput);
+                FinPara
+                Si ((CaracterToInteger(VInput) MOD 2) = 0) Hacer
+                    ContadoreAlumnosPares := ContadoreAlumnosPares + 1;
+                    Mientras (VInput <> "#") Hacer
+                        Avanzar(Input, VInput);
+                        Escribir(Output, VInput);
+                    FinMientras
+                    Avanzar(Input, VInput);
+                SiNo
+                    Mientras (VInput <> "#") Hacer
+                        Avanzar(Input, VInput);
+                    FinMientras
+                    Avanzar(Input, VInput);
+                FinSI
+            FinPara
+            Escribir("El total de alumnos con Legajo Par en la comision ", ComisionActual, " es ", ContadoreAlumnosPares);
+            ContadoreAlumnosPares := 0;
+
+        FinMientras
+FinAccion

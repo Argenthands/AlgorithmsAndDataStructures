@@ -1,0 +1,39 @@
+Se dispone de una lista simplemente encadenada de números enteros, diseñar un algoritmo que a partir de ella genere otra lista conteniendo los nodos cuyos datos terminan en cero; dichos elementos, deberán ser eliminados de la lista original. Se asume que la lista está cargada, y que el algoritmo recibe como parámetro de entrada la dirección del primer elemento.
+
+Accion Listas_2 (Head: Puntero a List) Es
+    Ambiente
+        List = Registro
+            Num: Entero;
+            Next: Puntero a List;
+        FinRegistro
+        Eliminados: Puntero a List;
+
+        NewList, LastElementFromNewList, Actual: Puntero a List;
+    
+        Procedimiento AddElementToQueue (NewElement: Puntero a Lista) Es
+            Si (NewList <> Nill) Entonces
+                *LastElementFromNewList.Next := NewElement;
+                LastElementFromNewList := NewElement;
+            SiNo
+                NewList := NewElement;
+                LastElementFromNewList := NewList;
+            FinSI
+        FinProcedimiento
+
+        Procedimiento DeletElementFromList (Prev, Actual: Puntero a Lista) Es
+            //eliminar un elemento
+        FinProcedimiento
+
+    Proceeso
+        Actual := Head;
+        
+        Mientras (Actual <> Nill) Hacer
+            Si (*Actual.Num ) Entonces
+                AddElementToQueue(Actual);
+                DeletElementFromList(Actual);
+            SiNo
+                Prev := Actual;
+            FinSi
+            Actual := *Actual.Next
+        FinMientras
+FinAccion

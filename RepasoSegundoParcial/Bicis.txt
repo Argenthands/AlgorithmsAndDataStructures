@@ -1,0 +1,70 @@
+Accion Paseos() es
+    Ambiente
+        INTENSIVOS = 1500;
+        RECREATIVOS = 1000;
+        costos: Arreglo [1 a 2; 1 a 6] de Real;
+        RBicicletas = Registro
+            nro_serie: Entero;
+            modelo: N(8);
+            fecha_adquisicion
+            fecha_ult_mantenimiento
+            disponibilidad
+        FinRegistro
+        Maestro, Actualizado: Archivo de RBicicletas ordenado por nro_serie y modelo;
+        VMaestro: RBicicletas;
+        RNoveades =  Regustro
+            nro_serie: Entero;
+            modelo: N(8);
+            tipo_novedad
+            fecha_novedad
+            hora_inicio
+            hora_fin
+            circuito_nro
+            id_usuario
+        FinRegistro
+        Novedades: Archivo de RNoveades ordenado por nro_serie y modelo;
+        VNovedad: RNoveades;
+        RClave = Registro
+            nro_serie: Entero;
+            modelo: N(8);
+        FinRegistro
+        MClave, NClave: Rclave;
+        RUsuarios = Registro
+            id_usuario: Entero;
+            dni: N(8);
+            sexo (m o f);
+            Apellido&Nombre: AN(50);
+            domicilio: AN(50);
+            localidad AN(50);
+            provincia AN(50);
+            edad Entero;
+        FinRegistro
+        Usuario: Archivo de RUsuarios indexado por id_usuario;
+        VUsuario: RUsuarios;
+        Procedimiento LeerMaestro() es
+            leer(Maestro, VMaestro);
+            Si (FdA(Maestro)) Entonces
+                MClave.nro_serie := HV;
+                MClave.modelo := HV;
+            SiNO
+                MClave.nro_serie := VMaestro.nro_serie;
+                MClave.modelo := VMaestro.modelo;
+            FinSi
+        FinProcedimiento
+        Procedimiento LeerNovedades() es
+            leer(Novedades, VNovedad);
+            Si (FdA(Novedades)) Entonces
+                NClave.nro_serie := HV;
+                NClave.modelo := HV;
+            SiNO
+                NClave.nro_serie := VNovedad.nro_serie;
+                NClave.modelo := VNovedad.modelo;
+            FinSi
+        FinProcedimiento
+        Procedimiento LeerMaestro() es
+        FinProcedimiento
+    Proceso
+        Abrir E/ (Maestro); LeerMaestro();
+        Abrir E/ (Novedades); LeerNovedades();
+        Abrir E/ (Usuario)
+        Abrir S/ (Actualizado);

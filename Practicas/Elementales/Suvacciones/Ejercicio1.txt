@@ -1,0 +1,13 @@
+Realice una función que dado un número devuelva su cuadrado.
+
+Accion 1.2.1 es
+    Embiente
+        num: Real;
+        Funcion Cuadrado (base: Real): Real
+            Funcion := base * base;
+        FinFuncion
+    Proceso
+        Esc("Ingrese un número");
+        Leer(num);
+        Esc("el cuadrado de ", num, "es ", Cuadrado(num));
+    FinProceso

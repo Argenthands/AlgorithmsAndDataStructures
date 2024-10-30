@@ -1,0 +1,1 @@
+. La suma de dos números es 123 y uno es el doble del otro. ¿Cuál es uno de esos números?

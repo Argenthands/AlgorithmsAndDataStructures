@@ -1,0 +1,68 @@
+
+Dada un secuencia de caracteres con la información de los alumnos que se encuentran cursando la materia de Algoritmos y Estructura de datos , con la siguiente estructura:
+LEGAJO (4 caracteres) Edad (2 caracteres) Apellido Y Nombre (#)
+
+1 Generar una secuencia de salida con los Apellidos y Nombre de de todos los alumnos cuya edad sea mayor a un valor que ingrese un usuario. Separar cada apellido con un caracter "&"
+2 Al final, determinar el promedio de edad de los alumnos que cursan Algoritmos. (Ejercicio1)
+3 Al final, determinar el porcentaje de alumnos que cumplen la condición.(Ejercicio2)
+
+Accion AlumnosDeA&EdD es
+    Ambiente
+        Input, Output: secuencia de caracteres;
+        VInput: caracter;
+        ContadorAlumnos, AcumuluadorEdadesAlumnos, ContadorAlumnosMayores, EdadMinima, EdadAuxiliar: Entero;
+        i: (1,2,3,4);
+
+        Funcion CaracterToInteger (Num: caracter): Entero;
+            Segun Num Hacer:
+                "0": CaracterToInteger = 0
+                "1": CaracterToInteger = 1
+                "2": CaracterToInteger = 2
+                "3": CaracterToInteger = 3
+                "4": CaracterToInteger = 4
+                "5": CaracterToInteger = 5
+                "6": CaracterToInteger = 6
+                "7": CaracterToInteger = 7
+                "8": CaracterToInteger = 8
+                "9": CaracterToInteger = 9
+            finSegun
+        FinFuncion
+        
+    Proceso
+        Escribir("Ingrese la edad minima de los alumnos que desea controlar");
+        Leero(EdadAuxiliar)
+        ContadorAlumnos, AcumuluadorEdadesAlumnos, ContadorAlumnosMayores := 0;
+        Arrancar(Input); Avanzar(Input, VInput); Crear(Output);
+
+        Mientras (NoFinDeSecuencia(Input)) Hacer
+
+            EdadAuxiliar:= 0;
+            Para i := 1 hasta 5 Hacer
+                Avanzar(Input, VInput);
+            FinPara
+
+            EdadAuxiliar := CaracterToInteger(VInput)*10
+            Avanzar(Input, VInput);
+            EdadAuxiliar := EdadAuxiliar + CaracterToInteger(VInput);
+            Avanzar(Input, VInput);
+
+            ContadorAlumnos := ContadorAlumnos + 1
+            AcumuluadorEdadesAlumnos:= AcumuluadorEdadesAlumnos + EdadAuxiliar;
+
+            Si(EdadMinima < EdadAuxiliar) Entonces
+                Mientras (VInput <> #) Hacer
+                    Escribir(Output, VInput);
+                    Avanzar(Input, VInput);
+                FinMientras
+                Si (ContadorAlumnos > 1) Entonces
+                    Escribir(Output, "&");
+                FinSi
+                ContadorAlumnosMayores := ContadorAlumnosMayores + 1
+            FinSi
+
+        FinMientras
+
+        Cerrar(Input); Cerrar(Output);
+        Escribir("El promedio de edad es", (AcumuluadorEdadesAlumnos / ContadorAlumnos))
+        Escribir("El porcentaje de alumnos Mayores a ", EdadAuxiliar, " es ", (ContadorAlumnos/ContadorAlumnosMayores)*100)
+FinAccion

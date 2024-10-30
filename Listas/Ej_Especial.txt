@@ -1,0 +1,87 @@
+Se dispone una lista con los nombres de los clientes de una compañía de telefoía celular, los cuales pueden aparecer repetidos, si estos tiene más de un número telefónico registrado a su nombre.
+
+La compañía para su próximo aniversario desea enviar un regalo a sus clientes, sin darle más de un regalo a cada cliente. Para ello cuenta con una lista circular en la que se encuentran almacenados los regalos y el stock disponible de cada regalo.
+
+Se desea una nueva lista con los clientes ordenados por nombre con cada regalo y  en caso de agotarse los regalos se les dara uno a determinar en el futuro, para lo cual tambien se necesita saber cuantos regalos faltan.
+
+Accion ????(clientes: Puntero a RCliente; regalos: Puntero a RRegalo;) Es
+Ambiente
+    RCliente = Registro
+        Nombre: AN(30);
+        Tel: N(15);
+        Prox: Puntero a RCliente;
+    FinRegistro
+    VCliente, AClientes: Puntero a RCliente;
+    Repetido = Boolean;
+
+    RRegalo = Registro
+        Regalo: AN(50);
+        Cant: Entero;
+        Prox: Puntero a RRegalo;
+    FinRegistro
+    VRegalo, ARegalos: Puntero a RRegalo;
+
+    RNuevo = Registro
+        Nombre: AN(30);
+        Regalo: AN(50);
+        Prox: Puntero a RNuevo;
+    FinRegistro
+    VNuevo, ANuevo, PrimNuevo: Puntero a RNuevo;
+
+    RegalosFaltantes: Entero;
+    Nombre: AN(30);
+    Regalo: AN(50);
+    SinRegalos : Logico;
+
+    Funcion CrearNuevoElemento (Nombre: AN(30), Regalo: AN(50), Proximo: Puntero a RNuevo): Puntero a RNuevo Es
+        Nuevo(VNuevo);
+        *VNuevo.Nombre := Nombre;
+        *VNuevo.Regalo := Regalo;
+        *VNuevo.Prox := Proximo;
+        CrearNuevoElemento := VNuevo;
+    FinFuncion
+
+    Procedimiento ElegirRegalo () Es
+        Ambiente
+            Anterior, Comienzo: Puntero a RNuevo;
+        Procedimiento
+        Si(*VRegalo.Cant > 0) Entonces
+            *VRegalo.Cant := *VRegalo.Cant -1;
+            Regalo := *VRegalo.Regalo;
+        SiNo
+            Anterior := Nill;
+            Comienzo := VRegalo
+            Mientras (VRegalo <> Comienzo & *VRegalo.Cant < 1) Hacer
+                Anterior := VRegalo;
+                VRegalo := *VRegalo.Prox;
+            FinMientras
+        FinSi
+        VRegalo := *VRegalo.Prox;
+    FinProcedimiento
+
+    Procedimiento CargaOrdenada (Nombre: AN(30)) Es
+        Ambiente
+            Anterior, Actual: Puntero a RNuevo;
+        Procedimiento
+            Anterior := Nill;
+            Actual := PrimNuevo;
+            Mientras (Actual <> Nill & *Actual.Nombre < Nombre) Hacer
+                Anterior := Actual;
+                Actual := *Acctual.Prox;
+            FinMientras
+            Si (Anterior = Nill) Entonces
+                Actual := CrearNuevoElemento(Nombre, ElegirRegalo(), PrimNuevo);
+                *PrimNuevo := 
+    FinProcedimiento
+
+Proceso
+    RegalosFaltantes := 0;
+    SinRegalos := Falso;
+    ANuevo := Nill;
+    VCliente := clientes;
+    PrimNuevo := CrearNuevoElemento(*VCliente.Nombre, *regalos.Regalo);
+
+    Mientras (VCliente <> Nill) Hecer
+
+    FinMientras
+FinAccion
